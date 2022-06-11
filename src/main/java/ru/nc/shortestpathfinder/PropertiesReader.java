@@ -12,7 +12,7 @@ import java.util.Properties;
 public class PropertiesReader {
     private static final String FILE_PATH = "world.properties";
     private static final String TILES_PROPERTY_KEY = "tiles";
-    private Map<String, Integer> raceTiles = new HashMap<>();
+    private final Map<String, Integer> raceTiles = new HashMap<>();
 
     public PropertiesReader(String race, String mapCells) {
 
@@ -41,13 +41,13 @@ public class PropertiesReader {
 
 
             if (mapCells == null || !mapCells.replaceAll("[" + availableTiles + "]", "").isBlank()
-                    || !isPerfectSquare(mapCells.length()) || mapCells.isBlank()) {
+                    || !this.isPerfectSquare(mapCells.length()) || mapCells.isBlank()) {
                 throw new IOException("Incorrect input game field map cells string!");
             }
 
             if (raceTilesCostsSplit.length == tilesSplit.length) {
                 for (int i = 0; i < tilesSplit.length; i++) {
-                    raceTiles.put(tilesSplit[i], Integer.valueOf(raceTilesCostsSplit[i]));
+                    this.raceTiles.put(tilesSplit[i], Integer.valueOf(raceTilesCostsSplit[i]));
                 }
             } else {
                 throw new IOException("The number of tiles mismatch the number of race's movement costs!");
@@ -64,6 +64,6 @@ public class PropertiesReader {
     }
 
     public Map<String, Integer> getRaceTiles() {
-        return raceTiles;
+        return this.raceTiles;
     }
 }

@@ -11,11 +11,11 @@ public class VertexWithPriority implements Comparable<VertexWithPriority> {
     }
 
     public int getIndex() {
-        return index;
+        return this.index;
     }
 
     public int getPriority() {
-        return priority;
+        return this.priority;
     }
 
     @Override

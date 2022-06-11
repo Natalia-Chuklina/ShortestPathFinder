@@ -20,9 +20,9 @@ public class Solution {
             Graph graph = new Graph(mapProperties);
 
             PathFinder pathFinder = new PathFinder(graph);
-            int shortestPathCost = pathFinder.findPathFromTopLeftCellToBottomRightCell();
 
-            return shortestPathCost;
+            return pathFinder.findPathFromTopLeftCellToBottomRightCell();
+
         } catch (RuntimeException e) {
             log.error("{}", e.getMessage());
             throw new RuntimeException(e);
