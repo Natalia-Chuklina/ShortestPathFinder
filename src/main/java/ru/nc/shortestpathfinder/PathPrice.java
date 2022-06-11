@@ -3,8 +3,8 @@ package ru.nc.shortestpathfinder;
 import java.util.Objects;
 
 public class PathPrice {
-    private int vertexIndex;
-    private int movePrice;
+    private final int vertexIndex;
+    private final int movePrice;
 
     public PathPrice(int vertexIndex, int movePrice) {
         this.vertexIndex = vertexIndex;
@@ -25,22 +25,22 @@ public class PathPrice {
 
     @Override
     public int hashCode() {
-        return Objects.hash(vertexIndex, movePrice);
+        return Objects.hash(this.vertexIndex, this.movePrice);
     }
 
     @Override
     public String toString() {
         return "PathPrice{" +
-                "vertexIndex=" + vertexIndex +
-                ", movePrice=" + movePrice +
+                "vertexIndex=" + this.vertexIndex +
+                ", movePrice=" + this.movePrice +
                 '}';
     }
 
     public int getVertexIndex() {
-        return vertexIndex;
+        return this.vertexIndex;
     }
 
     public int getMovePrice() {
-        return movePrice;
+        return this.movePrice;
     }
 }

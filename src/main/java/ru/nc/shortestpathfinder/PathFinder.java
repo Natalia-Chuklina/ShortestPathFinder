@@ -12,9 +12,9 @@ public class PathFinder {
     private static final Logger log = LoggerFactory.getLogger(PathFinder.class.getName());
     private static final Integer INITIAL_VERTEX = 0;
     private final Graph graph;
-    private Queue<VertexWithPriority> vertexQueue = new PriorityQueue<>();
-    private Map<Integer, Integer> vertexAttendanceIndicator = new HashMap<>();
-    private Map<Integer, Integer> totalWayCost = new HashMap<>();
+    private final Queue<VertexWithPriority> vertexQueue = new PriorityQueue<>();
+    private final Map<Integer, Integer> vertexAttendanceIndicator = new HashMap<>();
+    private final Map<Integer, Integer> totalWayCost = new HashMap<>();
 
     public PathFinder(Graph graph) {
         this.graph = graph;
@@ -39,24 +39,25 @@ public class PathFinder {
             }
 
             for (PathPrice link : this.graph.getVertexLinks(current)) {
-                Integer localWayCost = totalWayCost.get(current) + link.getMovePrice();
+                int localWayCost = this.totalWayCost.get(current) + link.getMovePrice();
 
-                if (!this.vertexAttendanceIndicator.containsKey(link.getVertexIndex()) || localWayCost < totalWayCost.get(link.getVertexIndex())) {
-                    totalWayCost.put(link.getVertexIndex(), localWayCost);
-                    this.vertexQueue.add(new VertexWithPriority(link.getVertexIndex(), localWayCost + graph.getHeuristicParameter(graph.getMaxVertexIndex(), link.getVertexIndex())));
+                if (!this.vertexAttendanceIndicator.containsKey(link.getVertexIndex()) || localWayCost < this.totalWayCost.get(link.getVertexIndex())) {
+                    this.totalWayCost.put(link.getVertexIndex(), localWayCost);
+                    this.vertexQueue.add(new VertexWithPriority(link.getVertexIndex(), localWayCost
+                            + this.graph.getHeuristicParameter(this.graph.getMaxVertexIndex(), link.getVertexIndex())));
                     this.vertexAttendanceIndicator.put(link.getVertexIndex(), current);
                 }
             }
         }
         logPath();
-        return totalWayCost.get(graph.getMaxVertexIndex());
+        return this.totalWayCost.get(this.graph.getMaxVertexIndex());
     }
 
     private void logPath() {
-        String local = "" + this.graph.getMaxVertexIndex();
+        StringBuilder local = new StringBuilder("" + this.graph.getMaxVertexIndex());
         int vertex = this.graph.getMaxVertexIndex();
         while (vertex != 0) {
-            local = local + "<-" + this.getPreviousVertex(vertex);
+            local.append("<-").append(this.getPreviousVertex(vertex));
             vertex = this.getPreviousVertex(vertex);
         }
         log.info("{}", local);

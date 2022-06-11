@@ -11,7 +11,7 @@ public class MapProperties {
 
     public MapProperties(String race, String mapCells) throws RuntimeException {
         PropertiesReader reader = new PropertiesReader(race, mapCells);
-        raceTiles = reader.getRaceTiles();
+        this.raceTiles = reader.getRaceTiles();
 
         this.mapCells = mapCells;
 
